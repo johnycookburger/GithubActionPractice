@@ -1,3 +1,19 @@
-const crypto = require("crypto");
-const crypto_orig_createHash = crypto.createHash;
-crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+const path = require("path");
+
+module.exports = {
+  entry: "./src/app.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "public")
+  },
+  mode: "production",
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: "babel-loader"
+      }
+    ]
+  }
+};
